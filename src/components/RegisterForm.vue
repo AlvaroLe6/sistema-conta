@@ -1,16 +1,23 @@
 <script setup>
-import { useTheme } from "vuetify";
-import AuthProvider from "@/views/authentication/AuthProvider.vue";
-import { ref, computed } from "vue";
-import authV1MaskDark from "@/assets/images/pages/auth-v1-mask-dark.png";
-import authV1MaskLight from "@/assets/images/pages/auth-v1-mask-light.png";
-import authV1Tree2 from "@/assets/images/pages/auth-v1-tree-2.png";
-import authV1Tree from "@/assets/images/pages/auth-v1-tree.png";
+
+import { useTheme } from "vuetify"
+import AuthProvider from "@/views/authentication/AuthProvider.vue"
+import { ref, computed } from "vue"
+import { useRouter } from 'vue-router'
+import authV1MaskDark from "@/assets/images/pages/auth-v1-mask-dark.png"
+import authV1MaskLight from "@/assets/images/pages/auth-v1-mask-light.png"
+import authV1Tree2 from "@/assets/images/pages/auth-v1-tree-2.png"
+import authV1Tree from "@/assets/images/pages/auth-v1-tree.png"
+import { authRegister } from "../stores/authRegister"
+
+
+const { registerUser } = authRegister();
+const router = useRouter()
 
 const form = ref({
   username: "",
   email: "",
-  password: "",
+  password: "", 
   privacyPolicies: false,
 });
 
@@ -23,6 +30,21 @@ const authThemeMask = computed(() => {
 });
 
 const isPasswordVisible = ref(false);
+
+const handleRegister = () => {
+  registerUser(
+    form.value.email, 
+    form.value.password, 
+    form.value.username,
+    (user) => {
+      console.log('Registro exitoso', user);
+      router.push({ name: 'home' });
+    },
+    (error) => {
+      console.error('Error en el registro', error);
+    }
+  );
+};
 </script>
 
 <template>
@@ -50,12 +72,13 @@ const isPasswordVisible = ref(false);
             </VCardText>
 
             <VCardText>
-              <VForm @submit.prevent="() => {}">
+              <VForm @submit.prevent="handleRegister">
                 <VRow>
                   <!-- Usuario -->
                   <VCol cols="12">
                     <v-label class="font-weight-bold mb-1"> Usuario </v-label>
-                    <VTextField variant="outlined" v-model="form.username" />
+                    <VTextField variant="outlined"
+                     v-model="form.username" />
                   </VCol>
                   <!-- email -->
                   <VCol cols="12">
@@ -104,7 +127,7 @@ const isPasswordVisible = ref(false);
                       block
                       flat
                       type="submit"
-                      to="/"
+                     
                     >
                       Registrarse
                     </VBtn>
@@ -159,7 +182,7 @@ const isPasswordVisible = ref(false);
 </style>
 <style>
 .text-body-1 {
-  font-size: 24px;
+  font-size: 1.5rem;
   font-weight: bold;
 }
 
