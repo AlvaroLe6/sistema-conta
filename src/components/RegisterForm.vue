@@ -13,6 +13,7 @@ import { authRegister } from "../stores/authRegister"
 
 const { registerUser } = authRegister();
 const router = useRouter()
+const vuetifyTheme = useTheme();
 
 const form = ref({
   username: "",
@@ -21,7 +22,6 @@ const form = ref({
   privacyPolicies: false,
 });
 
-const vuetifyTheme = useTheme();
 
 const authThemeMask = computed(() => {
   return vuetifyTheme.global.name.value === "light"
@@ -133,7 +133,7 @@ const handleRegister = () => {
                     </VBtn>
                   </VCol>
 
-                  <!-- login instead -->
+                  <!-- Ya tienes una cuenta -->
                   <VCol cols="12" class="text-center text-base">
                     <span>¿Ya tienes una cuenta?</span>
                     <RouterLink class="text-primary ms-2" to="login">
@@ -147,7 +147,7 @@ const handleRegister = () => {
                     <VDivider />
                   </VCol>
 
-                  <!-- auth providers -->
+                  <!-- Otros provedores de autenticación -->
                   <VCol cols="12" class="text-center">
                     <AuthProvider />
                   </VCol>

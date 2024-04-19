@@ -1,7 +1,7 @@
 import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
 import { getFirestore, doc, setDoc } from 'firebase/firestore';
 
-export const useRegister = () => {
+export const authRegister = () => {
   const auth = getAuth();
   const db = getFirestore();
 
@@ -12,7 +12,6 @@ export const useRegister = () => {
 
       await setDoc(doc(db, 'usuarios', user.uid), {
         username: username,
-        // ...otros datos que quieras guardar
       });
 
       onSuccess(user);
