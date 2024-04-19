@@ -60,7 +60,7 @@ export const useAuthStore = defineStore('auth', () => {
     })
 
     const isAuth = computed(() => {
-        console.log("userprofile",authUser.value)
+        console.log("userprofile",authUser.value )
 
         return authUser.value
     })
