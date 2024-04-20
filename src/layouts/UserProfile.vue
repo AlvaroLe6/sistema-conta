@@ -9,7 +9,7 @@ console.log("user name",auth.username)
 
 
 <div v-if="auth.isAuth">
-    Bienvenido, {{ auth.isAuth.username }} <!-- Muestra el nombre de usuario -->
+    Bienvenido, {{ auth.isAuth.username || 'Usuario' }} <!-- Muestra el nombre de usuario -->
     <img :src="auth.isAuth.photoURL" alt="Avatar del usuario"> <!-- Muestra la foto de perfil -->
     <!-- Otros detalles del usuario -->
   </div>

@@ -5,12 +5,12 @@ import { useFirebaseAuth } from 'vuefire'
 import { signInWithEmailAndPassword, onAuthStateChanged , signOut} from 'firebase/auth'
 import { useRouter } from 'vue-router'
 
+
 export const useAuthStore = defineStore('auth', () => {
 
     const auth = useFirebaseAuth()
-    const authUser = ref(null)
     const router = useRouter()
- 
+    const authUser=ref(null)
 
     const errorMsg = ref('')
     const errorCodes = {
@@ -21,7 +21,16 @@ export const useAuthStore = defineStore('auth', () => {
     onMounted(() => {
         onAuthStateChanged(auth, (user) => {
             if (user) {
-                authUser.value = user
+                authUser.value = {
+                    email: user.email,
+                    username: user.username,
+                    
+
+                };
+                console.log("userprofile",user.username )
+            }
+            else { 
+                authUser.value = null;
             }
         })
     })
@@ -35,7 +44,7 @@ export const useAuthStore = defineStore('auth', () => {
 
             })
             .catch(error => {
-                errorMsg.value = errorCodes[error.code]
+                errorMsg.value = errorCodes[error.code] || "Ocurrió un error inesperado."
             })
 
     }
@@ -60,7 +69,6 @@ export const useAuthStore = defineStore('auth', () => {
     })
 
     const isAuth = computed(() => {
-        console.log("userprofile",authUser.value )
 
         return authUser.value
     })
