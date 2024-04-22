@@ -1,17 +1,25 @@
 <script setup>
 import { useAuthStore } from "@/stores/auth";
-const auth = useAuthStore();
+import { storeToRefs } from 'pinia';
 
-console.log("user name",auth.username)
+const { authUser,auth } = useAuthStore();
+const authStore = useAuthStore();
+
+const { userProfile } = storeToRefs(authStore);
+
+console.log("user name11111111111",userProfile.username)
+console.log("user name",authUser)
+console.log("Nombre de usuario cargado:", userProfile.value.username);
+
 </script>
 
 <template>
 
 
-<div v-if="auth.isAuth">
-    Bienvenido, {{ auth.isAuth.username || 'Usuario' }} <!-- Muestra el nombre de usuario -->
-    <img :src="auth.isAuth.photoURL" alt="Avatar del usuario"> <!-- Muestra la foto de perfil -->
-    <!-- Otros detalles del usuario -->
+<div v-if="authUser">
+    Bienvenido, {{userProfile.username || 'Usuario'  }} <!-- Muestra el nombre de usuario -->
+     <!--<img :src="auth.isAuth.photoURL" alt="Avatar del usuario">--> <!-- Muestra la foto de perfil -->
+   <!-- Otros detalles del usuario -->
   </div>
   
   <VBadge
@@ -60,7 +68,7 @@ console.log("user name",auth.username)
           </VListItem>
           <VDivider class="my-2" />
 
-          <!-- 👉 Profile -->
+          <!-- Perfil -->
           <VListItem :to="{ name: 'account-settings' }" >
             <template 
             #prepend>
