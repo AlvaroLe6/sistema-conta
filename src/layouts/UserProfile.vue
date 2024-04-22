@@ -15,7 +15,7 @@ console.log("Nombre de usuario cargado:", userProfile.value.username);
 
 <template>
 
-
+<div class="user-profile">
 <div v-if="authUser">
     Bienvenido, {{userProfile.username || 'Usuario'  }} <!-- Muestra el nombre de usuario -->
      <!--<img :src="auth.isAuth.photoURL" alt="Avatar del usuario">--> <!-- Muestra la foto de perfil -->
@@ -119,5 +119,21 @@ console.log("Nombre de usuario cargado:", userProfile.value.username);
       <!-- !SECTION -->
     </VAvatar>
   </VBadge>
+</div>
 </template>
 
+<style>
+.user-profile {
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* Esto separa los elementos a ambos extremos */
+  width: 100%; /* O el ancho que desees */
+  padding: 0 1rem; /* Añade un poco de espacio a los lados si es necesario */
+}
+
+.user-info {
+  display: flex;
+  align-items: center;
+  gap: 1rem; /* Añade espacio entre la imagen y el texto si agregas una imagen */
+}
+</style>
