@@ -62,7 +62,7 @@ console.log("Nombre de usuario cargado:", userProfile.value.username);
             </template>
 
             <VListItemTitle class="font-weight-semibold">
-              Admin
+              {{userProfile.username || 'Usuario'  }}
             </VListItemTitle>
             <VListItemSubtitle>Admin</VListItemSubtitle>
           </VListItem>
@@ -112,7 +112,7 @@ console.log("Nombre de usuario cargado:", userProfile.value.username);
               size="22" />
             </template>
 
-            <VListItemTitle @click="auth.logout"> Cerrar sesión</VListItemTitle>
+            <VListItemTitle @click="authStore.logout"> Cerrar sesión</VListItemTitle>
           </VListItem>
         </VList>
       </VMenu>
